@@ -12,6 +12,7 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            scroll-behavior: smooth; /* 平滑滚动 */
         }
 
         a {
@@ -24,6 +25,13 @@
             color: #007BFF;
         }
 
+        /* 容器样式 - 实现响应式居中 */
+       .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         /* 导航栏样式 */
         nav {
             background-color: #f8f9fad4;
@@ -32,15 +40,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky; /* 导航栏吸顶 */
+            top: 0;
+            z-index: 999;
         }
 
-        nav.logo {
+       .logo {
             margin-left: 20px;
         }
 
-        nav.logo img {
+       .logo img {
             max-width: 100px;
             height: auto;
+            /* 图片兜底样式 */
+            background-color: #f1f1f1;
+            padding: 5px;
+            border-radius: 4px;
         }
 
         nav ul {
@@ -48,10 +63,11 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-wrap: wrap; /* 适配移动端 */
         }
 
         nav ul li {
-            font-size: 50px;
+            font-size: 18px; /* 修正字体大小 */
             margin-right: 20px;
         }
 
@@ -71,6 +87,17 @@
             left: 0;
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
+            /* 图片兜底样式 */
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 24px;
+        }
+
+       .carousel img::before {
+            content: "轮播图片";
         }
 
        .carousel img.active {
@@ -113,8 +140,13 @@
             color: #333;
         }
 
+       .product-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; /* 产品卡片间距 */
+        }
+
        .product-item {
-            margin-bottom: 40px;
             border: 1px solid #E0E0E0;
             border-radius: 8px;
             padding: 30px;
@@ -131,8 +163,12 @@
 
        .product-item img {
             max-width: 250px;
-            height: auto;
+            height: 200px; /* 统一图片高度 */
+            object-fit: contain;
             margin-bottom: 20px;
+            /* 图片兜底样式 */
+            background-color: #f1f1f1;
+            border-radius: 4px;
         }
 
        .product-item h3 {
@@ -149,6 +185,7 @@
             font-size: 20px;
             color: #007BFF;
             margin-top: 15px;
+            font-weight: bold;
         }
 
         /* 品牌故事页样式 */
@@ -162,6 +199,7 @@
             color: #333;
             text-align: justify;
             line-height: 1.8;
+            margin-bottom: 20px;
         }
 
         /* 购买渠道页样式 */
@@ -170,8 +208,15 @@
             background-color: #F9F9F9;
         }
 
+       .purchase-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
        .purchase-item {
-            margin-bottom: 30px;
+            text-align: center;
         }
 
        .purchase-item a {
@@ -187,6 +232,12 @@
        .purchase-item a:hover {
             background-color: #007BFF;
             color: #fff;
+        }
+
+       .purchase-item p {
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
         }
 
         /* 联系我们页样式 */
@@ -208,6 +259,14 @@
             border: 1px solid #E0E0E0;
             border-radius: 6px;
             font-size: 16px;
+            box-sizing: border-box; /* 防止输入框溢出 */
+        }
+
+        form input:focus,
+        form textarea:focus {
+            outline: none;
+            border-color: #007BFF;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
         }
 
         form button {
@@ -219,10 +278,60 @@
             font-size: 18px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            width: 100%;
         }
 
         form button:hover {
             background-color: #0056b3;
+        }
+
+        /* 提示消息样式 */
+       .message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+
+       .success {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+       .error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+           .logo {
+                margin-left: 0;
+                margin-bottom: 15px;
+            }
+
+            nav ul li {
+                margin-right: 15px;
+                margin-bottom: 10px;
+            }
+
+           .carousel {
+                height: 300px; /* 移动端轮播图高度 */
+            }
+
+           .section-title {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
@@ -231,7 +340,7 @@
     <!-- 导航栏 -->
     <nav>
         <div class="logo">
-            <img src="logo.jpg" alt="六哈湿巾logo"> <!-- 这里假设logo图片名为logo.jpg，需根据实际情况修改 -->
+            <img src="logo.jpg" alt="六哈湿巾logo"> <!-- 替换为实际logo路径 -->
         </div>
         <ul>
             <li><a href="#">首页</a></li>
@@ -242,9 +351,9 @@
         </ul>
     </nav>
 
-    <!-- 首页 -->
+    <!-- 首页轮播图 -->
     <div class="carousel">
-        <img src="factory1.jpg" alt="产品1" class="active">
+        <img src="factory1.jpg" alt="产品展示" class="active">
         <img src="factory2.jpg" alt="生产车间">
         <img src="cooperation.jpg" alt="合作场景">
         <div class="carousel-indicators">
@@ -256,62 +365,72 @@
 
     <!-- 产品介绍页 -->
     <section class="product-section" id="product">
-        <h2 class="section-title">产品介绍</h2>
-        <div class="product-items">
-            <div class="product-item">
-                <img src="baby-wipes.jpg" alt="婴儿湿巾">
-                <h3>婴儿湿巾</h3>
-                <p>成分安全，杀菌率高达99.9%，有效保护宝宝健康。</p>
-                <p class="product-price">价格:26.5元/80抽6包</p>
-            </div>
-            <div class="product-item">
-                <img src="household-wipes.jpg" alt="家居清洁湿巾">
-                <h3>家居清洁湿巾</h3>
-                <p>种类丰富，高效清洁，满足各种家居清洁需求。</p>
-                <p class="product-price">价格:5元/80抽1包</p>
-            </div>
-            <div class="product-item">
-                <img src="personal-wipes.jpg" alt="个人清洁湿巾">
-                <h3>个人清洁湿巾</h3>
-                <p>养肤卸妆，保湿锁水，还原肌肤清爽。</p>
-                <p class="product-price">价格:6元/40抽2包</p>
+        <div class="container">
+            <h2 class="section-title">产品介绍</h2>
+            <div class="product-items">
+                <div class="product-item">
+                    <img src="baby-wipes.jpg" alt="婴儿湿巾">
+                    <h3>婴儿湿巾</h3>
+                    <p>成分安全，杀菌率高达99.9%，有效保护宝宝健康。</p>
+                    <p class="product-price">价格:26.5元/80抽6包</p>
+                </div>
+                <div class="product-item">
+                    <img src="household-wipes.jpg" alt="家居清洁湿巾">
+                    <h3>家居清洁湿巾</h3>
+                    <p>种类丰富，高效清洁，满足各种家居清洁需求。</p>
+                    <p class="product-price">价格:5元/80抽1包</p>
+                </div>
+                <div class="product-item">
+                    <img src="personal-wipes.jpg" alt="个人清洁湿巾">
+                    <h3>个人清洁湿巾</h3>
+                    <p>养肤卸妆，保湿锁水，还原肌肤清爽。</p>
+                    <p class="product-price">价格:6元/40抽2包</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- 品牌故事页 -->
     <section class="story-section" id="story">
-        <h2 class="section-title">品牌故事</h2>
-        <p>   六哈工作室致力于打造高品质湿巾品牌......</p>
-        <p>我们与杭州洋易日化科技有限公司紧密合作......</p>
-        <p>我们的愿景是为消费者提供安全、环保的湿巾产品......</p>
+        <div class="container">
+            <h2 class="section-title">品牌故事</h2>
+            <p>六哈工作室致力于打造高品质湿巾品牌，始终坚持以用户需求为核心，严选优质原材料，采用先进的生产工艺，确保每一款产品都符合最高的安全标准。</p>
+            <p>我们与杭州洋易日化科技有限公司紧密合作，依托其专业的研发能力和完善的生产体系，不断创新产品配方，提升产品品质，为消费者带来更舒适的使用体验。</p>
+            <p>我们的愿景是为消费者提供安全、环保的湿巾产品，让每一次清洁都成为一种享受，用贴心的产品守护每一个家庭的健康生活。</p>
+        </div>
     </section>
 
     <!-- 购买渠道页 -->
     <section class="purchase-section" id="purchase">
-        <h2 class="section-title">购买渠道</h2>
-        <div class="purchase-items">
-            <div class="purchase-item">
-                <a href="micro-shop-url" target="_blank">微店购买</a>
-            </div>
-            <div class="purchase-item">
-                <a href="douyin-shop-url" target="_blank">抖音小店购买</a>
-            </div>
-            <div class="purchase-item">
-                <p>线下实体店地址：厦门市集美区天马路706-25-120</p>
+        <div class="container">
+            <h2 class="section-title">购买渠道</h2>
+            <div class="purchase-items">
+                <div class="purchase-item">
+                    <a href="#" onclick="alert('暂未开通，敬请期待！')" target="_blank">微店购买</a>
+                </div>
+                <div class="purchase-item">
+                    <a href="#" onclick="alert('暂未开通，敬请期待！')" target="_blank">抖音小店购买</a>
+                </div>
+                <div class="purchase-item">
+                    <p>线下实体店地址：厦门市集美区天马路706-25-120</p>
+                    <p>联系电话：138XXXX8888（示例）</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- 联系我们页 -->
     <section class="contact-section" id="contact">
-        <h2 class="section-title">联系我们</h2>
-        <form>
-            <input type="text" placeholder="姓名">
-            <input type="email" placeholder="邮箱">
-            <textarea placeholder="留言内容"></textarea>
-            <button type="submit">提交</button>
-        </form>
+        <div class="container">
+            <h2 class="section-title">联系我们</h2>
+            <form id="contactForm">
+                <input type="text" id="name" placeholder="姓名" required>
+                <input type="email" id="email" placeholder="邮箱" required>
+                <textarea id="message" placeholder="留言内容" rows="5" required></textarea>
+                <button type="submit">提交</button>
+                <div id="formMessage" class="message"></div>
+            </form>
+        </div>
     </section>
 
     <script>
@@ -327,6 +446,7 @@
             carouselIndicators[index].classList.add('active');
         }
 
+        // 点击指示器切换轮播图
         carouselIndicators.forEach((indicator, index) => {
             indicator.addEventListener('click', () => {
                 currentIndex = index;
@@ -334,12 +454,58 @@
             });
         });
 
-        setInterval(() => {
+        // 自动轮播
+        let carouselInterval = setInterval(() => {
             currentIndex = (currentIndex + 1) % carouselImages.length;
             showImage(currentIndex);
         }, 5000);
+
+        // 鼠标悬停暂停轮播
+        const carousel = document.querySelector('.carousel');
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(carouselInterval);
+        });
+
+        // 鼠标离开恢复轮播
+        carousel.addEventListener('mouseleave', () => {
+            carouselInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % carouselImages.length;
+                showImage(currentIndex);
+            }, 5000);
+        });
+
+        // 表单验证与提交
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // 阻止默认提交行为
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // 简单验证
+            if (!name ||!email ||!message) {
+                formMessage.className = 'message error';
+                formMessage.textContent = '请填写完整的留言信息！';
+                return;
+            }
+
+            // 模拟提交成功
+            formMessage.className ='message success';
+            formMessage.textContent = '留言提交成功！我们会尽快与您联系。';
+
+            // 重置表单
+            contactForm.reset();
+
+            // 3秒后隐藏提示
+            setTimeout(() => {
+                formMessage.className ='message';
+                formMessage.textContent = '';
+            }, 3000);
+        });
     </script>
 </body>
-
 
 </html>
